@@ -1,12 +1,26 @@
 'use strict'
 import React from 'react';
+const key = require('../../key.json');
 const ReactDom = require('react-dom');
 
-import CurrentWeatherBox from '../Components/CurrentWeatherBox/currentWeatherBox.js';
+import InteractiveMap from '../Components/InteractiveMap/interactiveMap.js';
+import WeatherModule from '../Components/WeatherModule/weatherModule.js';
 
-ReactDom.render(
+
+/*fetch(`/data`)
+.then((data)=>{
+  ReactDom.render(
     (<div>
-      <CurrentWeatherBox />
+      <InteractiveMap />
+      <WeatherModule />
     </div>),
     document.getElementById('root')
   );
+});*/
+ReactDom.render(
+  (<div>
+    <InteractiveMap />
+    <WeatherModule />
+  </div>),
+  document.getElementById('root')
+);

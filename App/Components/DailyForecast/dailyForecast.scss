@@ -1,0 +1,35 @@
+
+.daily-forecast-container {
+}
+
+.headline {
+  text-transform: uppercase;
+  padding-bottom: 10px;
+}
+
+.daily-table {
+  display: flex; /*TODO:Fix for other browsers too*/
+  justify-content: center;
+  width:80%;
+  margin:0 auto;
+  max-width: 800px;
+  //height: 130px;
+  border: solid 2px #fff;
+  border-radius: 1px; /*TODO:Fix for other browsers too*/
+}
+
+.daily-listing {
+  flex-grow: 1;
+  border-right:solid 1px #fff;
+  padding: 10px 0px;
+  width:90px;
+}
+
+.daily-info {
+  font-size:12px;
+  padding-top: 3px;
+}
+
+.daily-icon {
+  font-size: 5px;
+}

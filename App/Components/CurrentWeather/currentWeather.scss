@@ -1,0 +1,30 @@
+.weather-container {
+  font-family: Roboto;
+  font-weight: 300;
+  text-align: center;
+  color: #fff;
+  width:80%;
+  height:700px;
+  margin: 0 auto;
+  background-color: rgba(20, 20, 20, 0.86);
+  z-index: 2;
+}
+
+.module {
+  padding: 10px 0px;
+}
+
+.cur-weather-header {
+  margin:0 auto;
+  font-size: 30px;
+  padding-bottom:15px;
+  text-align: center;
+}
+
+.cur-weather-image {
+  font-size: 22px;
+}
+
+.cur-weather-condition {
+  font-size: 25px;
+}
