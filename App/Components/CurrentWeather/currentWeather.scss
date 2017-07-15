@@ -4,21 +4,31 @@
   text-align: center;
   color: #fff;
   width:80%;
+  min-width: 500px;
   height:700px;
   margin: 0 auto;
   background-color: rgba(20, 20, 20, 0.86);
   z-index: 2;
 }
 
-.module {
-  padding: 10px 0px;
+.weather-box-container {
+  width:60%;
+  margin: 0 auto;
 }
 
-.cur-weather-header {
+.module {
+  padding: 20px 0px;
+}
+
+.page-header {
   margin:0 auto;
   font-size: 30px;
-  padding-bottom:15px;
+  padding-bottom:10px;
   text-align: center;
+}
+
+.location-info {
+  padding-bottom: 10px;
 }
 
 .cur-weather-image {

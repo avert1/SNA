@@ -3,7 +3,7 @@ import HistoricHeatDisplay from './historicHeatDisplay.js';
 import {formatShortDate} from '../../Utilities/formatDate.js';
 import {Line as LineChart} from 'react-chartjs-2';
 
-const HistoricWeather = ({wData, currentTemp}) => {
+const HistoricWeather = ({wData, currentTemp, location}) => {
   const generateChartData = (data)=>{
     let tempData = {
       backgroundColor: 'rgba(255, 255, 255, 0.2)',
@@ -46,16 +46,19 @@ const HistoricWeather = ({wData, currentTemp}) => {
   }
   return(
     <div className ="hist-weather-container module">
-      <div className="cur-weather-header">
-        Historic Weather for { wData && (wData.city+', '+ wData.state)}
+      <div className="page-header">
+        Historic Weather
       </div>
-      <HistoricHeatDisplay wData={wData} currentTemp={currentTemp} />
+      <div className="location-info">
+        {location}
+      </div>
+      <HistoricHeatDisplay wData={wData.past} currentTemp={currentTemp} />
       <div className="hist-linechart-container module">
         <div className="headline">
-          Historical temperatures for {formatShortDate(wData[0].time)}
+          Historical temperatures for {formatShortDate(wData.past[0].time)}
         </div>
         <div className="hist-linechart">
-          <LineChart data={generateChartData(wData)} options={options} />
+          <LineChart data={generateChartData(wData.past)} options={options} />
         </div>
       </div>
     </div>

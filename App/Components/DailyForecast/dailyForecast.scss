@@ -1,5 +1,6 @@
 
 .daily-forecast-container {
+  min-width: 490px;
 }
 
 .headline {
@@ -21,7 +22,7 @@
 .daily-listing {
   flex-grow: 1;
   border-right:solid 1px #fff;
-  padding: 10px 0px;
+  padding: 10px 3px;
   width:90px;
 }
 

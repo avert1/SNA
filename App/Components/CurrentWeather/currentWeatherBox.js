@@ -1,5 +1,9 @@
 import React from 'react';
 import HourlySlider from './hourlySlider.js';
+import Icon from '../Icons/icon.js';
+import Slider from 'rc-slider';
+import {formatLongDay, formatHour} from '../../Utilities/formatDate.js';
+require('rc-slider/assets/index.css');
 
 class CurrentWeatherBox extends React.Component{
   constructor(props){
@@ -9,26 +13,37 @@ class CurrentWeatherBox extends React.Component{
     }
   }
 
+  componentWillMount(){
+    console.log("Mounting!!!!!");
+    if(this.props.wData){
+      console.log("Wdata coming in!");
+      this.props.wData.hourlyData.forEach(wData=>{
+        wData.formattedTime = formatLongDay(wData.time) + ", " + formatHour(wData.time);
+      });
+    }
+  }
+
   render(){
-    let wData = this.props.wData[this.state.currentIndex];
+    if(!this.props.wData) return null;
+    let city = this.props.wData.city,
+    state = this.props.wData.state,
+    wData = this.props.wData.hourlyData[this.state.currentIndex];
+
+    let hoursToDisplay = 24;
+    console.log("time:");
+    console.log(wData.time);
     return(
-      <div className ="cur-weather-container module">
-        <div className="cur-weather-header">
-          Current Weather for {wData.city+', '+ wData.state}
-        </div>
+      <div className ="weather-box-container">
+        <div>{wData.formattedTime}</div>
         <div className="cur-weather-image">
-          <div className="icon sun-shower">
-          <div className="cloud"></div>
-          <div className="sun">
-            <div className="rays"></div>
-          </div>
-          <div className="rain"></div>
-          </div>
+          <Icon name={wData.icon} />
         </div>
         <div className="cur-weather-condition">
           {Math.round(wData.temp)} |{wData.summary}
         </div>
-        <HourlySlider values={6} setCurrentIndex={this.setCurrentIndex.bind(this)}/>
+        <div className="slider-container">
+          <Slider step={1} defaultValue={0} min={0} max={Math.min(hoursToDisplay, this.props.wData.hourlyData.length)-1} onChange={(e)=>{this.setCurrentIndex(e)}} />
+        </div>
       </div>
     )
   }

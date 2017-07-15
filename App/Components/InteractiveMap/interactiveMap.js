@@ -2,27 +2,34 @@ import React from 'react';
 
 class InteractiveMap extends React.Component {
   componentDidMount(){
-    let uluru = {lat: -25.363, lng: 131.044};
-    if(navigator.geolocation){
-      navigator.geolocation.getCurrentPosition((pos)=>{
-        uluru = {lat:pos.coords.latitude, lng:pos.coords.longitude}
-        this.createMap(uluru);
-      });
+    if(!this.map){
+      this.createMap(this.props.center);
     }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(!this.map){
+      console.log("Map not created!");
+      this.createMap(nextProps.center);
+    }
+    if(nextProps.center && nextProps.center.lat && nextProps.center.lng){
+      this.map.setCenter(nextProps.center)
+    }
+
   }
 
   render(){
     return(
       <div id="map-container">
-        hi
       </div>
     )
   }
 
   createMap(center){
-    let map = new google.maps.Map(document.getElementById('map-container'), {
+     this.map = new google.maps.Map(document.getElementById('map-container'), {
       zoom: 7,
-      center
+      center,
+      gestureHandling:"none"
     });
   }
 }

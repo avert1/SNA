@@ -1,3 +1,4 @@
+//Temp weather icons from https://codepen.io/joshbader/pen/EjXgqr
 .icon {
   position: relative;
   display: inline-block;
@@ -274,4 +275,63 @@
     background: #fff;
     opacity: 0.2;
   }
+}
+
+//Temp search icon base from https://codepen.io/satrya/pen/JGRxNb
+.search-button {
+	position: relative;
+	width: 55px;
+  height: 40px;
+	margin: 0 auto;
+	//padding: 50px 0;
+	text-align: center;
+  border-color: #fff;
+
+	&__circle {
+    position: absolute;
+    right:9px;
+    top:2px;
+		width: 20px;
+		height: 20px;
+		border: 5px solid #fff;
+    border-color: inherit;
+		border-radius: 20px;
+	}
+
+	&__rectangle {
+		position: absolute;
+		left: 0;
+    top:28px;
+		width: 20px;
+		transform: rotate(-38deg);
+		border: 2px solid #fff;
+    border-color: inherit;
+	}
+
+  &.active {
+    border-color: #222;
+  }
+}
+
+//Loading Icon, animation from W3
+//This container would need to be in a component instead of an icon if we
+//Want to reuse the loading-icon
+.loading-container {
+  padding-top: 20%;
+}
+
+.loading {
+  margin: 0 auto;
+  width:12em;
+  height:12em;
+  font-size: 1em;
+  border: 10px solid #444;
+  border-top: 10px solid #fff;
+  border-radius: 12em;
+  animation: spin 1.3s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

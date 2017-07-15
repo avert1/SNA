@@ -18,9 +18,6 @@ import WeatherModule from '../Components/WeatherModule/weatherModule.js';
   );
 });*/
 ReactDom.render(
-  (<div>
-    <InteractiveMap />
-    <WeatherModule />
-  </div>),
+  (<WeatherModule />),
   document.getElementById('root')
 );

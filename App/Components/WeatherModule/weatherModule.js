@@ -1,53 +1,123 @@
 import React from 'react';
-import CurrentWeatherBox from '../CurrentWeather/currentWeatherBox.js';
-import DailyForecast from '../DailyForecast/dailyForecast.js';
-import HistoricWeather from '../HistoricWeather/historicWeather.js';
+import CurrentWeatherPage from '../Pages/currentWeatherPage.js';
+import HistoricWeatherPage from '../Pages/historicWeatherPage.js';
+import Navigation from '../Navigation/navigation.js';
+import InteractiveMap from '../InteractiveMap/interactiveMap.js';
+import Search from '../Search/search.js';
 
 class WeatherModule extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      currentTab: "current",
-      currentWeather:null,
-      dailyWeather:null
+      currentPage: "Current",
+      //Default latlng
+      lat: 37.8267,
+      lng: -122.4233,
+      location:"Los Angeles",
+      currentData: {},
+      historicData: {}
     }
   }
 
   componentDidMount(){
-    fetch(`/data`).then(response=>response.json())
-    .then((data)=>{
-      console.log(data);
-      this.setState({
-        currentWeather:data.current,
-        dailyWeather:data.daily,
-      })
-    });
-    fetch(`/past`).then(response=>response.json())
-    .then((data)=>{
-      console.log(data);
-      this.setState({
-        historicWeather:data.past
-      })
-    });
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition((pos)=>{
+        let geocoder = new google.maps.Geocoder();
+        geocoder.geocode( { 'location': {lat:pos.coords.latitude, lng:pos.coords.longitude}}, (results, status)=> {
+          if(status == 'OK') {
+            let location = results[0].formatted_address;
+            this.updateLocation(pos.coords.latitude, pos.coords.longitude, location);
+          }
+        })
+        //.then(()=>this.updateLocation(pos.coords.latitude, pos.coords.longitude, locName));
+      }, (err)=>{
+        console.log("error!!!");
+        this.updateLocation(this.state.lat, this.state.lng, this.state.location);
+      });
+    }
+    //this.updateLocation();
   }
 
   render(){
-    if(!this.state.currentWeather)return null;
-    //if(!this.state.historicWeather)return null;
-    console.log(this.state.currentWeather);
+    //This code needs to be replaced with React Router
+    let componentToRender = (<Search updateLocation={this.updateLocation.bind(this)}/>);
+    //console.log("cur location");
+    //console.log(this.state.location);
+    let latlng = this.state.currentData?{lat:this.state.lat, lng:this.state.lng}:null;
+    //console.log("latlng:");
+    //console.log(latlng);
+    //console.log("from obj:");
+    //console.log(this.state.currentData);
+    if(this.state.currentPage==="Current"){
+      componentToRender = (<CurrentWeatherPage wData={this.state.currentData} location={this.state.location} />);
+    } else if(this.state.currentPage==="Historic") {
+      componentToRender = (<HistoricWeatherPage wData={this.state.historicData} location={this.state.location} currentTemp={65}/>)
+    }
     return(
-      <div className="weather-container">
-        <CurrentWeatherBox wData={this.state.currentWeather} />
-        <DailyForecast wData={this.state.dailyWeather}/>
-        {/*<HistoricWeather wData={this.state.historicWeather} currentTemp={65}/>*/}
+      <div>
+        <InteractiveMap center={latlng} />
+        <div className="weather-container">
+          <Navigation setPage={this.setPage.bind(this)} currentTab={this.state.currentPage} />
+          {componentToRender}
+        </div>
       </div>
-    )
+    );
   }
 
-  changeLocation(center){
-    let map = new google.maps.Map(document.getElementById('map-container'), {
-      zoom: 6,
-      center
+  setPage(page){
+    this.setState({
+      currentPage:page
+    })
+  }
+
+  updateLocation(lat, lng, location = "Unknown Location"){
+    console.log("getting location data!");
+    this.setState({
+      lat,
+      lng,
+      currentData:{},
+      historicData:{},
+      currentPage:"Current"
+    }, ()=>{
+      fetch(`/data?lat=${lat}&lng=${lng}`)
+      .then(response=>response.json())
+      .then((data)=>{
+        console.log("checking data!");
+        console.log(data);
+        if(!data){
+          //Error out
+          this.setState({
+            currentData:null,
+            location
+          });
+          return;
+        }
+        this.setState({
+          currentData:data,
+          location
+        });
+      })
+      .catch(err=>{
+        //console.log("Caught error!");
+        this.setState({
+          currentData:null,
+          location
+        });
+      });
+
+      fetch(`/past/`)
+      .then(response=>{
+        if(response.ok)return response.json();
+        //Otherwise error out
+        return;
+      })
+      .then((data)=>{
+        //console.log("historicData:");
+        console.log(data);
+        this.setState({
+          historicData:data
+        })
+      });
     });
   }
 }

@@ -4,9 +4,10 @@ import DailyListing from './dailyListing.js';
 const DailyForecast = ({wData}) =>{
 
   const generateListings = (dailyData) =>{
-    return dailyData.slice(0,Math.min(7, dailyData.length)).map(day=><DailyListing day={day.time} high={day.high} low={day.low} summary={day.summary}/>)
+    return dailyData.slice(0,Math.min(7, dailyData.length))
+    .map((day,index)=><DailyListing key={index} day={day.time} high={day.high} low={day.low} summary={day.summary} icon={day.icon}/>)
   }
-
+  if(!wData) return null;
   return(
     <div className ="daily-forecast-container module">
       <div className="headline">
