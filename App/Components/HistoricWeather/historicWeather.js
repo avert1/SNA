@@ -18,11 +18,14 @@ const HistoricWeather = ({wData, currentTemp, location})=>{
     let labels = [];
     if(wData && wData.past){
       wData.past.forEach(day=>{
-        highs.data.push(day.high);
-        lows.data.push(day.low);
+        highs.data.push(Math.round(day.high));
+        lows.data.push(Math.round(day.low));
         labels.push(new Date(day.time).getFullYear());
       });
     }
+    highs.data.reverse();
+    lows.data.reverse();
+    labels.reverse();
 
     let chartData = {
       labels,

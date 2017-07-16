@@ -18,7 +18,7 @@ App.get('/data/', function(req, res){
     return res.status(400).send('Missing Params');
   }
   console.log("Getting location for: " + req.query.lat +  " " + req.query.lng);
-  fetch(`https://api.darksky.net/forecast/${key.key}/${req.query.lat},${req.query.lng}`)
+  fetch(`https://api.darksky.net/forecast/${key.key}/${req.query.lat},${req.query.lng}?exclude=alerts,flags,`)
   //fetch(`https://api.darksky.net/forecast/${key.key}/37.8267,-122.4233`)
   .then(response => {
     //console.log(response);
@@ -38,10 +38,7 @@ App.get('/data/', function(req, res){
         );
         let currentTime=data.currently.time;
 
-        let currentData= {
-          city:"Testa",
-          state:"TE",
-          hourlyData:[
+        let hourlyData = [
             //Add current data as first index of hourly
             {
               temp: data.currently.temperature,
@@ -52,11 +49,10 @@ App.get('/data/', function(req, res){
               hi:data.daily.data[0].temperatureMax,
               low:data.daily.data[0].temperatureMin
             }
-          ]
-        }
+        ];
         data.hourly.data.map(hour =>{
           if(!currentTime || (currentTime && hour.time>currentTime))
-            currentData.hourlyData.push({
+            hourlyData.push({
               time:new Date(1000*hour.time),
               icon: hour.icon,
               temp: hour.temperature,
@@ -69,7 +65,7 @@ App.get('/data/', function(req, res){
 
         res.send({
           dailyData,
-          currentData
+          hourlyData
         });
       });
     }
@@ -85,7 +81,64 @@ App.get('/data/', function(req, res){
 
 
 App.get('/past', function(req,res){
-  let arr = [];
+
+  if(!req.query.lat || !req.query.lng){
+    return res.status(400).send('Missing Params');
+  }
+  console.log("Getting location for: " + req.query.lat +  " " + req.query.lng);
+  let pastDataCall = (date)=>  {
+  console.log("date:");
+  console.log(date);
+  return fetch(`https://api.darksky.net/forecast/${key.key}/${req.query.lat},${req.query.lng},${date}?exclude=currently,alerts,flags,hourly`)
+  //fetch(`https://api.darksky.net/forecast/${key.key}/37.8267,-122.4233`)
+  .then(response => {
+    if(response.ok) {
+      return response.json()
+      .then(data => {
+        return data;
+      });
+    }
+    else {
+      console.log(response);
+      throw 'error retreiving data, did not return with 200 status';
+    }
+  })
+  .catch(err=>{
+    console.log(err);
+    throw 'error getting data';
+  })};
+
+  let promises = [];
+  let curTime = new Date();
+  for(let i=0;i<2;i++){
+    curTime.setFullYear(curTime.getFullYear()-1);
+    promises.push(pastDataCall(Math.round(curTime.getTime()/1000)));
+  }
+
+  Promise.all(promises).then(data=>{
+    let pastArray = [];
+    for(let i = 0;i<data.length;i++){
+      let day = data[i].daily.data[0];
+      if(day){
+        pastArray.push({
+          time:new Date(1000*day.time),
+          high:day.temperatureMax,
+          low:day.temperatureMin,
+        });
+      }
+    }
+    res.send({
+      past:pastArray
+    })
+  })
+  .catch(err=>{
+    res.status(404).send('Past Data Error');
+    return;
+  });
+
+
+
+  /*let arr = [];
   for(let i=0;i<9;i++){
     arr.push({
       time:new Date(1000*409467600),
@@ -99,7 +152,7 @@ App.get('/past', function(req,res){
     state:"TE",
     past:arr
   }
-  );
+);*.
   /*
   fetch(`https://api.darksky.net/forecast/${key.key}/37.8267,-122.4233/${time}`)
   .then(response => {

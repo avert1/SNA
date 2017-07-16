@@ -1,16 +1,28 @@
 .weather-container {
   font-family: Roboto;
+  position: relative;
+  box-sizing: border-box;
+  padding-bottom: 22px;
   font-weight: 300;
   text-align: center;
   color: #fff;
   width:80%;
   min-width: 500px;
+  margin: 0 auto;
   margin-top: 20px;
   min-height:740px;
   overflow: auto;
-  margin: 0 auto;
   background-color: rgba(20, 20, 20, 0.86);
   z-index: 2;
+}
+
+.footer {
+  a {
+    color:#bdf2ff;
+  }
+  position: absolute;
+  bottom: 2px;
+  width: 100%;
 }
 
 .temp::after{

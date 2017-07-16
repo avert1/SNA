@@ -1,6 +1,6 @@
-const formatShortDate = (date)=>{
-  if(!date) return null;
-  if(!(date instanceof Date))return null;
+const formatShortDate = (oldDate)=>{
+  if(!oldDate) return null;
+  let date = new Date(oldDate);
   const monthArray = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const dateSuffix = ["st", "nd", "rd"];
   let curDate=date.getDate(), suffix= "th";

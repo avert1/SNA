@@ -4,24 +4,35 @@ import {formatShortDate} from '../../Utilities/formatDate.js';
 
 
 const HistoricHeatDisplay = ({wData, currentTemp})=>{
+
+  if(!currentTemp) return null;
+
   const getHeatIndexInfo = (data, curTemp)=>{
     let pos = 1;
+    curTemp = 67.5;
     data.forEach(day=>{
       pos += (day.high<curTemp)?1:0;
     });
+    let type = 'low';
+    let formattedIndex = pos;
+    if(pos>(data.length+1)/2){
+      formattedIndex = data.length+2 - pos;
+      type = 'high';
+    }
     let formattedPos="";
-    switch(pos){
+    switch(formattedIndex){
       //Case 1 is actually not necessary here. Leaving for clarity
       case 1:
         formattedPos = "";
         break;
       case 2:
         formattedPos = "2nd";
+        break;
       case 3:
         formattedPos = "3rd";
         break;
       default:
-        formattedPos = pos+"th";
+        formattedPos = formattedIndex+"th";
     }
     let displayColor = 'rgb(0, 255, 0)';
     if(pos>5&&pos<=7){
@@ -31,6 +42,7 @@ const HistoricHeatDisplay = ({wData, currentTemp})=>{
     }
     return {
       pos,
+      type,
       formattedPos,
       displayColor
     }
@@ -49,7 +61,7 @@ const HistoricHeatDisplay = ({wData, currentTemp})=>{
     <div className="hist-heat-comp module">
       <div className="heat-chart-container"><DChart data={cData} options={{maintainAspectRatio:false, responsive:true, tooltips:{enabled:false}}} /></div>
       <div className="heat-comp-text">
-        This {formatShortDate(wData[0].time)} is the {heatIndex.pos<6? heatIndex.formattedPos+ " coolest" : wData.length+2 - heatIndex.pos + " hottest" } in the past {wData.length+1} years
+        This {formatShortDate(wData[0].time)} is the {heatIndex.type==='low'? heatIndex.formattedPos+ " coolest" : heatIndex.formattedPos + " hottest" } in the past {wData.length+1} years
       </div>
     </div>
   )

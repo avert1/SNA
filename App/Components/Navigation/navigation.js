@@ -35,8 +35,6 @@ class Navigation extends React.Component {
     }
 
     setCurrentTab(tab){
-      console.log('setting state');
-      console.log(this.props);
       if(navLinks.indexOf(tab)>-1){
         this.setState({
           currentTab:tab

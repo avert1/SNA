@@ -14,7 +14,7 @@ class WeatherModule extends React.Component {
       //Default latlng
       lat: 37.8267,
       lng: -122.4233,
-      location:"Los Angeles",
+      location:"San Francisco, CA, USA",
       currentData: {},
       historicData: {}
     }
@@ -44,7 +44,9 @@ class WeatherModule extends React.Component {
     if(this.state.currentPage==="Current"){
       componentToRender = (<CurrentWeatherPage wData={this.state.currentData} location={this.state.location} />);
     } else if(this.state.currentPage==="Historic") {
-      componentToRender = (<HistoricWeatherPage wData={this.state.historicData} location={this.state.location} currentTemp={65}/>)
+      //Note: this could be avoided with a status variable to be set when currData has returned
+      let currentTemp = (this.state.currentData && this.state.currentData.hourlyData)?this.state.currentData.hourlyData[0].temp : null;
+      componentToRender = (<HistoricWeatherPage wData={this.state.historicData} location={this.state.location} currentTemp={60}/>)
     }
     return(
       <div>
@@ -52,6 +54,9 @@ class WeatherModule extends React.Component {
         <div className="weather-container">
           <Navigation setPage={this.setPage.bind(this)} currentTab={this.state.currentPage} />
           {componentToRender}
+          <div className="footer">
+            <a href={'https://darksky.net/poweredby/'}>Powered by Dark Sky</a>
+          </div>
         </div>
       </div>
     );
@@ -63,11 +68,12 @@ class WeatherModule extends React.Component {
     })
   }
 
+  //Set a state that effectively says we're fetching data, could be replaced with a string that gives status
   updateLocation(lat, lng, location = "Unknown Location"){
-    console.log("getting location data!");
     this.setState({
       lat,
       lng,
+      location,
       currentData:{},
       historicData:{},
       currentPage:"Current"
@@ -87,34 +93,37 @@ class WeatherModule extends React.Component {
         }
 
         //Modify the times of wData. Originally done in currentWeatherBox but thats an anti-pattern
-        data.currentData.hourlyData.forEach(wData=>{
+        data.hourlyData.forEach(wData=>{
           wData.formattedTime = formatLongDay(wData.time) + ", " + formatHour(wData.time);
         });
 
         this.setState({
-          currentData:data,
-          location
+          currentData:data
         });
       })
       .catch(err=>{
         this.setState({
-          currentData:null,
-          location
+          currentData:null
         });
       });
 
-      fetch(`/past/`)
-      .then(response=>{
-        if(response.ok)return response.json();
-        //Otherwise error out
-        return;
-      })
+      fetch(`/past?lat=${lat}&lng=${lng}`)
+      .then(response=>response.json())
       .then((data)=>{
-        //console.log("historicData:");
-        console.log(data);
+        if(!data){
+          //Error out
+          this.setState({
+            historicData:null
+          });
+        }
         this.setState({
           historicData:data
         })
+      })
+      .catch(err=>{
+        this.setState({
+          historicData:null
+        });
       });
     });
   }

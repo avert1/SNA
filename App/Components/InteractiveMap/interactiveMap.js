@@ -20,16 +20,21 @@ class InteractiveMap extends React.Component {
 
   render(){
     return(
-      <div id="map-container">
+      <div className="map-container">
+        <div id="map">
+        </div>
       </div>
     )
   }
 
   createMap(center){
-     this.map = new google.maps.Map(document.getElementById('map-container'), {
+     this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 7,
       center,
-      gestureHandling:"none"
+      gestureHandling:"none",
+      scrollwheel:false,
+      disableDoubleClickZoom:true,
+      disableDefaultUI:false
     });
   }
 }

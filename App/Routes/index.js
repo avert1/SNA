@@ -1,22 +1,15 @@
 'use strict'
 import React from 'react';
-const key = require('../../key.json');
 const ReactDom = require('react-dom');
-
-import InteractiveMap from '../Components/InteractiveMap/interactiveMap.js';
 import WeatherModule from '../Components/WeatherModule/weatherModule.js';
+//Promises for IE 11.
+import Promise from 'promise-polyfill';
+import 'whatwg-fetch';
 
 
-/*fetch(`/data`)
-.then((data)=>{
-  ReactDom.render(
-    (<div>
-      <InteractiveMap />
-      <WeatherModule />
-    </div>),
-    document.getElementById('root')
-  );
-});*/
+if(!window.Promise){
+  window.Promise = Promise;
+}
 ReactDom.render(
   (<WeatherModule />),
   document.getElementById('root')
