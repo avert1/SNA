@@ -150,6 +150,4 @@ App.get('/past', function(req,res){
 );*/
 });
 
-App.listen(3000, ()=>{
-  console.log('listening on 3000');
-});
+module.exports = App;
