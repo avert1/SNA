@@ -28,7 +28,6 @@ class Search extends React.Component {
     let geocoder = new google.maps.Geocoder();
     geocoder.geocode( { 'address': searchVal}, (results, status)=> {
       if(status == 'OK' || status == 'ZERO_RESULTS') {
-        console.log(results);
         //Add to recent searches if at least one val is returned
         if(results.length >= 1) {
           this.addRecentSearch(searchVal);
@@ -55,8 +54,6 @@ class Search extends React.Component {
 
   generateRecentSearches(){
     let recent = JSON.parse(localStorage.getItem('recentsearch'));
-    console.log("Parsed obj: ");
-    console.log(recent);
     if(!recent || !Array.isArray(recent)){
       return null;
     }
@@ -86,8 +83,6 @@ class Search extends React.Component {
         recent.splice(index, 1);
       }
       recent.push(searchVal);
-      console.log("new array:");
-      console.log(recent);
       localStorage.setItem('recentsearch', JSON.stringify(recent));
     }
   }

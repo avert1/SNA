@@ -31,7 +31,6 @@ class WeatherModule extends React.Component {
           }
         });
       }, (err)=>{
-        console.log("error!!!");
         this.updateLocation(this.state.lat, this.state.lng, this.state.location);
       });
     }
@@ -81,8 +80,6 @@ class WeatherModule extends React.Component {
       fetch(`/data?lat=${lat}&lng=${lng}`)
       .then(response=>response.json())
       .then((data)=>{
-        console.log("checking data!");
-        console.log(data);
         if(!data){
           //Error out
           this.setState({

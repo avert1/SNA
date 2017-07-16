@@ -9,7 +9,6 @@ const CurrentWeatherPage = ({wData, location}) =>{
   if(wData && Object.keys(wData).length === 0){
     return (<Icon name="loading"/>);
   } else if(wData){
-    console.log('have weatherData!');
     return (
       <div className ="cur-weather-container module">
         <div className="page-header">

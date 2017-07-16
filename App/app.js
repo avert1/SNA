@@ -17,15 +17,13 @@ App.get('/data/', function(req, res){
   if(!req.query.lat || !req.query.lng){
     return res.status(400).send('Missing Params');
   }
-  console.log("Getting location for: " + req.query.lat +  " " + req.query.lng);
+  //console.log("Getting cur data for: " + req.query.lat +  " " + req.query.lng);
   fetch(`https://api.darksky.net/forecast/${key.key}/${req.query.lat},${req.query.lng}?exclude=alerts,flags,`)
   //fetch(`https://api.darksky.net/forecast/${key.key}/37.8267,-122.4233`)
   .then(response => {
-    //console.log(response);
     if(response.ok) {
       return response.json()
       .then(data => {
-        //console.log(data);
         let current = data.currently;
         let dailyData = data.daily.data.map(day =>(
           {
@@ -85,10 +83,8 @@ App.get('/past', function(req,res){
   if(!req.query.lat || !req.query.lng){
     return res.status(400).send('Missing Params');
   }
-  console.log("Getting location for: " + req.query.lat +  " " + req.query.lng);
+  //console.log("Getting past data for: " + req.query.lat +  " " + req.query.lng);
   let pastDataCall = (date)=>  {
-  console.log("date:");
-  console.log(date);
   return fetch(`https://api.darksky.net/forecast/${key.key}/${req.query.lat},${req.query.lng},${date}?exclude=currently,alerts,flags,hourly`)
   //fetch(`https://api.darksky.net/forecast/${key.key}/37.8267,-122.4233`)
   .then(response => {
@@ -99,7 +95,6 @@ App.get('/past', function(req,res){
       });
     }
     else {
-      console.log(response);
       throw 'error retreiving data, did not return with 200 status';
     }
   })
@@ -152,33 +147,7 @@ App.get('/past', function(req,res){
     state:"TE",
     past:arr
   }
-);*.
-  /*
-  fetch(`https://api.darksky.net/forecast/${key.key}/37.8267,-122.4233/${time}`)
-  .then(response => {
-    //console.log(response);
-    if(response.ok)return response.json();
-      //Otherwise error out
-      res.status(404).send('Past Data Error');
-      return;
-  })
-  .then(data => {
-    //console.log(data);
-    let dailyData = data.daily.data.map(day =>(
-      {
-        time:day.time,
-        summary:day.summary,
-        high:day.temperatureMax,
-        low:day.temperatureMin,
-      })
-    );
-
-    res.send({
-      past:pastData,
-      current:hourlyData
-    });
-  });
-  */
+);*/
 });
 
 App.listen(3000, ()=>{

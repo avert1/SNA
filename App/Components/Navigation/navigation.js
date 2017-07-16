@@ -5,14 +5,12 @@ class Navigation extends React.Component {
 
     constructor(props) {
       super(props);
-      console.log(this.props);
       this.state = {
         currentTab:this.props.currentTab
       }
     }
 
     generateNavLinks(links) {
-      console.log(this.state);
       return navLinks.map((link, index)=>{
         if(link === "Search"){
           let activeStyle = (this.props.currentTab === link ? " active" : "");
