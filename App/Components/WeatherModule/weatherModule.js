@@ -1,4 +1,5 @@
 import React from 'react';
+import {formatLongDay, formatHour} from '../../Utilities/formatDate.js';
 import CurrentWeatherPage from '../Pages/currentWeatherPage.js';
 import HistoricWeatherPage from '../Pages/historicWeatherPage.js';
 import Navigation from '../Navigation/navigation.js';
@@ -28,26 +29,18 @@ class WeatherModule extends React.Component {
             let location = results[0].formatted_address;
             this.updateLocation(pos.coords.latitude, pos.coords.longitude, location);
           }
-        })
-        //.then(()=>this.updateLocation(pos.coords.latitude, pos.coords.longitude, locName));
+        });
       }, (err)=>{
         console.log("error!!!");
         this.updateLocation(this.state.lat, this.state.lng, this.state.location);
       });
     }
-    //this.updateLocation();
   }
 
   render(){
     //This code needs to be replaced with React Router
     let componentToRender = (<Search updateLocation={this.updateLocation.bind(this)}/>);
-    //console.log("cur location");
-    //console.log(this.state.location);
-    let latlng = this.state.currentData?{lat:this.state.lat, lng:this.state.lng}:null;
-    //console.log("latlng:");
-    //console.log(latlng);
-    //console.log("from obj:");
-    //console.log(this.state.currentData);
+    let latlng = this.state.currentData && Object.keys(this.state.currentData).length>0?{lat:this.state.lat, lng:this.state.lng}:null;
     if(this.state.currentPage==="Current"){
       componentToRender = (<CurrentWeatherPage wData={this.state.currentData} location={this.state.location} />);
     } else if(this.state.currentPage==="Historic") {
@@ -92,13 +85,18 @@ class WeatherModule extends React.Component {
           });
           return;
         }
+
+        //Modify the times of wData. Originally done in currentWeatherBox but thats an anti-pattern
+        data.currentData.hourlyData.forEach(wData=>{
+          wData.formattedTime = formatLongDay(wData.time) + ", " + formatHour(wData.time);
+        });
+
         this.setState({
           currentData:data,
           location
         });
       })
       .catch(err=>{
-        //console.log("Caught error!");
         this.setState({
           currentData:null,
           location

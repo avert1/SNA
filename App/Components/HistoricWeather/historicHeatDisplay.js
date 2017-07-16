@@ -47,7 +47,7 @@ const HistoricHeatDisplay = ({wData, currentTemp})=>{
 
   return (
     <div className="hist-heat-comp module">
-      <div className="heat-chart-container"><DChart data={cData} options={{maintainAspectRatio:false, responsive:true}} /></div>
+      <div className="heat-chart-container"><DChart data={cData} options={{maintainAspectRatio:false, responsive:true, tooltips:{enabled:false}}} /></div>
       <div className="heat-comp-text">
         This {formatShortDate(wData[0].time)} is the {heatIndex.pos<6? heatIndex.formattedPos+ " coolest" : wData.length+2 - heatIndex.pos + " hottest" } in the past {wData.length+1} years
       </div>

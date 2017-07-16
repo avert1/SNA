@@ -3,66 +3,72 @@ import HistoricHeatDisplay from './historicHeatDisplay.js';
 import {formatShortDate} from '../../Utilities/formatDate.js';
 import {Line as LineChart} from 'react-chartjs-2';
 
-const HistoricWeather = ({wData, currentTemp, location}) => {
-  const generateChartData = (data)=>{
-    let tempData = {
-      backgroundColor: 'rgba(255, 255, 255, 0.2)',
-      data:[]
+const HistoricWeather = ({wData, currentTemp, location})=>{
+    let highs =  {
+        label:"High",
+        backgroundColor: 'rgba(255, 113, 113, 0.8)',
+        data:[],
+      },
+      lows = {
+        label:"Low",
+        hidden:true,
+        backgroundColor: 'rgba(100, 255, 255, 0.8)',
+        data:[]
+      };
+    let labels = [];
+    if(wData && wData.past){
+      wData.past.forEach(day=>{
+        highs.data.push(day.high);
+        lows.data.push(day.low);
+        labels.push(new Date(day.time).getFullYear());
+      });
     }
-    let labels=[];
-    data.forEach(day=>{
-      tempData.data.push(day.high);
-      labels.push(new Date(1000*day.time).getFullYear());
-    });
 
-
-    return {
+    let chartData = {
       labels,
-      datasets:[
-        tempData
-      ]
-    };
-  }
-
-  const options = {
-    //width={150} height={150} options={{maintainAspectRatio:false, responsive:true}}
-    responsive:true,
-    maintainAspectRatio:false,
-    legend:{
-      display:false
-    },
-    scales: {
-      xAxes: [{
-        gridLines: {
-          display:false
-        }
-      }],
-      yAxes: [{
-        gridLines: {
-          display:false
-        }
-      }]
+      datasets: [highs, lows]
     }
-  }
-  return(
-    <div className ="hist-weather-container module">
-      <div className="page-header">
-        Historic Weather
-      </div>
-      <div className="location-info">
-        {location}
-      </div>
-      <HistoricHeatDisplay wData={wData.past} currentTemp={currentTemp} />
-      <div className="hist-linechart-container module">
-        <div className="headline">
-          Historical temperatures for {formatShortDate(wData.past[0].time)}
+
+    const options = {
+      //width={150} height={150} options={{maintainAspectRatio:false, responsive:true}}
+      responsive:true,
+      maintainAspectRatio:false,
+      legend:{
+        position:'bottom'
+      },
+      scales: {
+        xAxes: [{
+          gridLines: {
+            display:false
+          }
+        }],
+        yAxes: [{
+          gridLines: {
+            display:false
+          }
+        }]
+      }
+    }
+
+    return(
+      <div className ="hist-weather-container module">
+        <div className="page-header">
+          Historic Weather
         </div>
-        <div className="hist-linechart">
-          <LineChart data={generateChartData(wData.past)} options={options} />
+        <div className="location-info">
+          {location}
+        </div>
+        <HistoricHeatDisplay wData={wData.past} currentTemp={currentTemp} />
+        <div className="hist-linechart-container module">
+          <div className="headline">
+            Historical temperatures for {formatShortDate(wData.past[0].time)}
+          </div>
+          <div className="hist-linechart">
+            <LineChart data={chartData} options={options} />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
 }
 
 export default HistoricWeather;

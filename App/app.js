@@ -91,7 +91,7 @@ App.get('/past', function(req,res){
       time:new Date(1000*409467600),
       summary:"Hot AF",
       high:60 + Math.random()*20,
-      low:50,
+      low:50+ Math.random()*20,
     });
   }
   res.send({

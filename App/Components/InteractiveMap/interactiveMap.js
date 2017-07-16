@@ -12,7 +12,7 @@ class InteractiveMap extends React.Component {
       console.log("Map not created!");
       this.createMap(nextProps.center);
     }
-    if(nextProps.center && nextProps.center.lat && nextProps.center.lng){
+    else if(nextProps.center && nextProps.center.lat && nextProps.center.lng){
       this.map.setCenter(nextProps.center)
     }
 

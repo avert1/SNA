@@ -5,10 +5,16 @@
   color: #fff;
   width:80%;
   min-width: 500px;
-  height:700px;
+  margin-top: 20px;
+  min-height:740px;
+  overflow: auto;
   margin: 0 auto;
   background-color: rgba(20, 20, 20, 0.86);
   z-index: 2;
+}
+
+.temp::after{
+  content:"\00b0";
 }
 
 .weather-box-container {

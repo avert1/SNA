@@ -12,8 +12,9 @@
   display: flex; /*TODO:Fix for other browsers too*/
   justify-content: center;
   width:80%;
-  margin:0 auto;
+  min-width: 490px;
   max-width: 800px;
+  margin:0 auto;
   //height: 130px;
   border: solid 2px #fff;
   border-radius: 1px; /*TODO:Fix for other browsers too*/
