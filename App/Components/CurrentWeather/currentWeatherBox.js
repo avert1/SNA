@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from '../Icons/icon.js';
 import Slider from 'rc-slider';
+import PropTypes from 'prop-types';
 require('rc-slider/assets/index.css');
 
 class CurrentWeatherBox extends React.Component{
@@ -46,6 +47,10 @@ class CurrentWeatherBox extends React.Component{
       currentIndex:index
     })
   }
+}
+
+CurrentWeatherBox.propTypes = {
+  wData:PropTypes.array.isRequired
 }
 
 export default CurrentWeatherBox;

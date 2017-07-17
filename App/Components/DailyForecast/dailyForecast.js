@@ -1,5 +1,6 @@
 import React from 'react';
 import DailyListing from './dailyListing.js';
+import PropTypes from 'prop-types';
 import './dailyForecast.scss';
 
 const DailyForecast = ({wData}) =>{
@@ -20,5 +21,9 @@ const DailyForecast = ({wData}) =>{
     </div>
   )
 };
+
+DailyForecast.propTypes = {
+  wData:PropTypes.array.isRequired
+}
 
 export default DailyForecast;

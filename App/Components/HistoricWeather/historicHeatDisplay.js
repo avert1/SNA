@@ -9,7 +9,6 @@ const HistoricHeatDisplay = ({wData, currentTemp})=>{
 
   const getHeatIndexInfo = (data, curTemp)=>{
     let pos = 1;
-    curTemp = 67.5;
     data.forEach(day=>{
       pos += (day.high<curTemp)?1:0;
     });

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 const navLinks = require('./navLinks.json').links;
 import './navigation.scss';
 
@@ -50,6 +51,10 @@ class Navigation extends React.Component {
         </nav>
       );
     }
+}
+
+Navigation.propTypes = {
+  currentTab:PropTypes.string.isRequired
 }
 
 export default Navigation;

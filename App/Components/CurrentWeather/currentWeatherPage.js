@@ -3,6 +3,7 @@ import CurrentWeatherBox from './currentWeatherBox.js'
 import DailyForecast from '../DailyForecast/dailyForecast.js';
 import Error from '../Error/error.js';
 import Icon from '../Icons/icon.js';
+import PropTypes from 'prop-types';
 import './currentWeather.scss';
 
 const CurrentWeatherPage = ({wData, location}) =>{
@@ -27,5 +28,10 @@ const CurrentWeatherPage = ({wData, location}) =>{
     <Error message={"There was a problem receiving the current data for "+ location + '!'} />
   );
 };
+
+CurrentWeatherPage.propTypes = {
+  wData:PropTypes.object,
+  location:PropTypes.string
+}
 
 export default CurrentWeatherPage;
