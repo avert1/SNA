@@ -3,7 +3,7 @@ const App = express();
 const key = require('../key.json');
 const fetch = require('node-fetch');
 
-App.use(express.static('public'));
+App.use(express.static(__dirname + '/public'));
 App.get('/', function(req, res){
     res.sendFile(__dirname + '/Views/index.html');
 });
@@ -105,7 +105,7 @@ App.get('/past', function(req,res){
 
   let promises = [];
   let curTime = new Date();
-  for(let i=0;i<2;i++){
+  for(let i=0;i<9;i++){
     curTime.setFullYear(curTime.getFullYear()-1);
     promises.push(pastDataCall(Math.round(curTime.getTime()/1000)));
   }
