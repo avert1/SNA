@@ -1,5 +1,6 @@
 import React from 'react';
 import DailyListing from './dailyListing.js';
+import './dailyForecast.scss';
 
 const DailyForecast = ({wData}) =>{
 

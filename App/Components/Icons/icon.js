@@ -1,4 +1,5 @@
 import React from 'react';
+import './icons.scss';
 
 const Icon = ({name}) => {
   let icon = null;

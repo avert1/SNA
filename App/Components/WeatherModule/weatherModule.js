@@ -1,10 +1,11 @@
 import React from 'react';
 import {formatLongDay, formatHour} from '../../Utilities/formatDate.js';
-import CurrentWeatherPage from '../Pages/currentWeatherPage.js';
-import HistoricWeatherPage from '../Pages/historicWeatherPage.js';
+import CurrentWeatherPage from '../CurrentWeather/currentWeatherPage.js';
+import HistoricWeatherPage from '../HistoricWeather/historicWeatherPage.js';
 import Navigation from '../Navigation/navigation.js';
 import InteractiveMap from '../InteractiveMap/interactiveMap.js';
 import Search from '../Search/search.js';
+import './common.scss';
 
 class WeatherModule extends React.Component {
   constructor(props){

@@ -1,4 +1,5 @@
 import React from 'react';
+import './interactiveMap.scss';
 
 class InteractiveMap extends React.Component {
   componentDidMount(){

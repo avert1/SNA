@@ -1,7 +1,8 @@
 import React from 'react';
-import HistoricWeather from '../HistoricWeather/historicWeather.js';
+import HistoricWeather from './historicWeather.js';
 import Error from '../Error/error.js';
 import Icon from '../Icons/icon.js';
+import './historicWeather.scss';
 
 
 //Currently the only use for this file is to render loading and error bars.

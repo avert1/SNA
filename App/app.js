@@ -105,7 +105,7 @@ App.get('/past', function(req,res){
 
   let promises = [];
   let curTime = new Date();
-  for(let i=0;i<9;i++){
+  for(let i=0;i<4;i++){
     curTime.setFullYear(curTime.getFullYear()-1);
     promises.push(pastDataCall(Math.round(curTime.getTime()/1000)));
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 const navLinks = require('./navLinks.json').links;
+import './navigation.scss';
 
 class Navigation extends React.Component {
 

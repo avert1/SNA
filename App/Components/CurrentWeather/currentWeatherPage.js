@@ -1,8 +1,9 @@
 import React from 'react';
-import CurrentWeatherBox from '../CurrentWeather/currentWeatherBox.js'
+import CurrentWeatherBox from './currentWeatherBox.js'
 import DailyForecast from '../DailyForecast/dailyForecast.js';
 import Error from '../Error/error.js';
 import Icon from '../Icons/icon.js';
+import './currentWeather.scss';
 
 const CurrentWeatherPage = ({wData, location}) =>{
 

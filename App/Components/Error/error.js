@@ -1,4 +1,5 @@
 import React from 'react';
+import './error.scss';
 
 const Error = ({message}) =>(
   <div className="error-container module">
