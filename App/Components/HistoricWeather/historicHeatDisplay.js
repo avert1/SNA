@@ -36,7 +36,7 @@ const HistoricHeatDisplay = ({wData, currentTemp})=>{
     let displayColor = 'rgb(0, 255, 0)';
     let upper = Math.round((data.length+1)*0.8);
     if(pos>(data.length+1)/2&&pos<=upper){
-      displayColor = 'rgb(247, 244, 56)'
+      displayColor = 'rgb(247, 244, 56)';
     } else if(pos>upper){
       displayColor = 'rgb(255, 0, 0)';
     }
