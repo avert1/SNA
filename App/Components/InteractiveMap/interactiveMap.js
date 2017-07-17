@@ -1,6 +1,7 @@
 import React from 'react';
 import './interactiveMap.scss';
 
+//Contains and renders Google Map, as well as updating map's location
 class InteractiveMap extends React.Component {
   componentDidMount(){
     if(!this.map){

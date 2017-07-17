@@ -1,6 +1,7 @@
 import React from 'react';
 import './search.scss';
 
+//Responsible for rendering search bar, search results, and recent searches
 class Search extends React.Component {
 
   constructor(props){

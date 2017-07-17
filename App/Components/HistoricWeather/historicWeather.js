@@ -3,6 +3,7 @@ import HistoricHeatDisplay from './historicHeatDisplay.js';
 import {formatShortDate} from '../../Utilities/formatDate.js';
 import {Line as LineChart} from 'react-chartjs-2';
 
+//Responsible for rendering Historic heat display as well as chart of previous years
 const HistoricWeather = ({wData, currentTemp, location})=>{
     let highs =  {
         label:"High",

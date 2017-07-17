@@ -6,6 +6,7 @@ import Icon from '../Icons/icon.js';
 import PropTypes from 'prop-types';
 import './currentWeather.scss';
 
+//Page component for rendering current weather, currently includes hour-by-hour and dailyForecast
 const CurrentWeatherPage = ({wData, location}) =>{
 
   if(wData && Object.keys(wData).length === 0){

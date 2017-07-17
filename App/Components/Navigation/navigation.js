@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 const navLinks = require('./navLinks.json').links;
 import './navigation.scss';
 
+//Navigation bar. Reads navigation links from navLinks.json
+//To make this component more flexible, can pass in navLinks as a prop instead
 class Navigation extends React.Component {
 
     constructor(props) {

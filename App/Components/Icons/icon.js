@@ -1,6 +1,7 @@
 import React from 'react';
 import './icons.scss';
 
+//Responsible for returning icons
 const Icon = ({name}) => {
   let icon = null;
   switch (name) {

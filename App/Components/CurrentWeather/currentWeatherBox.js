@@ -4,6 +4,7 @@ import Slider from 'rc-slider';
 import PropTypes from 'prop-types';
 require('rc-slider/assets/index.css');
 
+//Renders the weather box that displays an hour-by-hour forecast
 class CurrentWeatherBox extends React.Component{
   constructor(props){
     super(props);

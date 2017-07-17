@@ -3,6 +3,7 @@ import DailyListing from './dailyListing.js';
 import PropTypes from 'prop-types';
 import './dailyForecast.scss';
 
+//Container for each day of a daily forecast
 const DailyForecast = ({wData}) =>{
 
   const generateListings = (dailyData) =>{

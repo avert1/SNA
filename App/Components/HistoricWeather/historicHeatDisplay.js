@@ -2,7 +2,7 @@ import React from 'react';
 import {Doughnut as DChart} from 'react-chartjs-2';
 import {formatShortDate} from '../../Utilities/formatDate.js';
 
-
+//Renders current day's heat in comparison to past years
 const HistoricHeatDisplay = ({wData, currentTemp})=>{
 
   if(!currentTemp) return null;

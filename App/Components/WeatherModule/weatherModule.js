@@ -7,6 +7,7 @@ import InteractiveMap from '../InteractiveMap/interactiveMap.js';
 import Search from '../Search/search.js';
 import './common.scss';
 
+//Container for all data. State currently handles routing
 class WeatherModule extends React.Component {
   constructor(props){
     super(props);
