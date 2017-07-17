@@ -44,7 +44,7 @@ App.get('/data/', function(req, res){
               icon: data.currently.icon,
               summary: data.currently.summary,
               description:data.minutely.summary,
-              hi:data.daily.data[0].temperatureMax,
+              high:data.daily.data[0].temperatureMax,
               low:data.daily.data[0].temperatureMin
             }
         ];

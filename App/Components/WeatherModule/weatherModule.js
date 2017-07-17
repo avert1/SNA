@@ -45,7 +45,7 @@ class WeatherModule extends React.Component {
       componentToRender = (<CurrentWeatherPage wData={this.state.currentData} location={this.state.location} />);
     } else if(this.state.currentPage==="Historic") {
       //Note: this could be avoided with a status variable to be set when currData has returned
-      let currentTemp = (this.state.currentData && this.state.currentData.hourlyData)?this.state.currentData.hourlyData[0].temp : null;
+      let currentTemp = (this.state.currentData && this.state.currentData.dailyData)?this.state.currentData.dailyData[0].high : null;
       componentToRender = (<HistoricWeatherPage wData={this.state.historicData} location={this.state.location} currentTemp={60}/>)
     }
     return(
