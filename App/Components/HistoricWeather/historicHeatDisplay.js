@@ -34,9 +34,10 @@ const HistoricHeatDisplay = ({wData, currentTemp})=>{
         formattedPos = formattedIndex+"th";
     }
     let displayColor = 'rgb(0, 255, 0)';
-    if(pos>5&&pos<=7){
+    let upper = Math.round((data.length+1)*0.8);
+    if(pos>(data.length+1)/2&&pos<=upper){
       displayColor = 'rgb(247, 244, 56)'
-    } else if(pos>7){
+    } else if(pos>upper){
       displayColor = 'rgb(255, 0, 0)';
     }
     return {
